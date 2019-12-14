@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace PIZZA.Models
 {
@@ -13,6 +14,7 @@ namespace PIZZA.Models
         }
 
         public int IdPizza { get; set; }
+        [Required(ErrorMessage = "Pizza Name is Required to Fill")]
         public string Name { get; set; }
         public string Desc { get; set; }
 

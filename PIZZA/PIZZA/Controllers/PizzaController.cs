@@ -29,6 +29,11 @@ namespace PIZZA.Controllers
         [HttpGet("{id}")]
         public IActionResult GetItem(int id)
         {
+            if (!_context.Pizza.Any(p => p.IdPizza == id))
+            {
+                return NotFound();
+            }
+
             return Ok(_context.Pizza.Find(id));
         }
      

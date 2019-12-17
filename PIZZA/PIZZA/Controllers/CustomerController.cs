@@ -11,11 +11,11 @@ namespace PIZZA.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PromoController : ControllerBase
+    public class CustomerController : ControllerBase
     {
         private readonly s17874Context _context;
 
-        public PromoController(s17874Context context)
+        public CustomerController(s17874Context context)
         {
             _context = context;
         }
@@ -23,30 +23,29 @@ namespace PIZZA.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            return Ok(_context.Promo.ToList());
+            return Ok(_context.Customer.ToList());
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetItem(int id)
+        public IActionResult GetCustomer(int id)
         {
-
-            if (!_context.Promo.Any(p => p.IdPromo == id))
+            if (!_context.Customer.Any(p => p.IdCustomer == id))
             {
                 return NotFound();
             }
-            return Ok(_context.Promo.Find(id));
+            return Ok(_context.Customer.Find(id));
         }
 
         [HttpPost]
-        public IActionResult AddItem(Promo newPromo)
+        public IActionResult AddCus(Customer newCus)
         {
-            _context.Promo.Add(newPromo);
+            _context.Customer.Add(newCus);
             _context.SaveChanges();
-            return StatusCode(201, newPromo);
+            return StatusCode(201, newCus);
         }
 
         [HttpPut("{id:int}")]
-        public IActionResult UpdateItem(int id, [FromBody]Promo update)
+        public IActionResult UpdateItem(int id, [FromBody]Customer update)
         {
 
             if (!ModelState.IsValid)
@@ -54,12 +53,12 @@ namespace PIZZA.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (!_context.Promo.Any(p => p.IdPromo == id))
+            if (!_context.Customer.Any(p => p.IdCustomer == id))
             {
                 return NotFound();
             }
 
-            _context.Promo.Attach(update);
+            _context.Customer.Attach(update);
             _context.Entry(update).State = EntityState.Modified;
             _context.SaveChanges();
 
@@ -67,18 +66,17 @@ namespace PIZZA.Controllers
         }
 
         [HttpDelete("id:int")]
-        public IActionResult deleteItem(int id)
+        public IActionResult deleteCus(int id)
         {
-            var promo = _context.Promo.FirstOrDefault(p => p.IdPromo == id);
-            if (promo == null)
+            var customer = _context.Customer.FirstOrDefault(p => p.IdCustomer == id);
+            if (customer == null)
             {
                 return NotFound();
             }
 
-            _context.Promo.Remove(promo);
+            _context.Customer.Remove(customer);
             _context.SaveChanges();
-            return Ok(promo);
+            return Ok(customer);
         }
-
     }
 }

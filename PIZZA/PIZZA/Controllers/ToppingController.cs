@@ -36,6 +36,6 @@ namespace PIZZA.Controllers
             return Ok(_context.Topping.Find(id));
         }
 
-        [HttpGet]
+       
     }
 }
